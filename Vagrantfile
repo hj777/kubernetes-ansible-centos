@@ -3,7 +3,7 @@ require 'getoptlong'
 Vagrant.require_version ">= 1.8.1"
 
 tags=Array.new
-numberOfVms=4
+numberOfVms=3
 vmMemory=2048
 
 sshKey="#{Dir.home}/.ssh/id_rsa.pub"
@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
         ssh_pub_key = File.readlines("#{sshKey}").first.strip
         s.inline = <<-SHELL
           echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
-          mkdir /root/.ssh && chmod 700 /root/.ssh
+          mkdir -p /root/.ssh && chmod 700 /root/.ssh
           touch /root/.ssh/authorized_keys && chmod 600 /root/.ssh/authorized_keys
           echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
         SHELL
