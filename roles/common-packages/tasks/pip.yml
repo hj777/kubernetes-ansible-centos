@@ -19,6 +19,8 @@
   with_items:
     - name: setuptools
       version: 42.0.2
+    - name: wheel
+      version: latest
     - name: docker-py
       version: 1.10.6
     - name: awscli
