@@ -21,16 +21,41 @@ virtualbox and vagrant can be installed from the following links:
 https://www.virtualbox.org/wiki/Downloads
 https://www.vagrantup.com/downloads.html
 
-update /etc/hosts file to include the following:
-      192.168.120.11 node1
-      192.168.120.12 node2
-      192.168.120.13 node3
+update your local (not in Vagrant boxes) /etc/hosts file to include the following:
+
+```
+192.168.120.11 node1
+192.168.120.12 node2
+192.168.120.13 node3
+```
 
 update ~/.ssh/config to include the following:
-      Host 192.168.120.1? node?
-      User vagrant
-      StrictHostKeyChecking no
-      ForwardAgent yes
+
+```
+Host node1
+    Hostname 192.168.120.11
+    User vagrant
+    StrictHostKeyChecking no
+    ForwardAgent yes
+
+Host node2
+    Hostname 192.168.120.12
+    User vagrant
+    StrictHostKeyChecking no
+    ForwardAgent yes
+
+Host node3
+    Hostname 192.168.120.13
+    User vagrant
+    StrictHostKeyChecking no
+    ForwardAgent yes
+
+Host node4
+    Hostname 192.168.120.14
+    User vagrant
+    StrictHostKeyChecking no
+    ForwardAgent yes
+```
 
 Run the following to create cluster of VMs.
 ```
@@ -49,7 +74,7 @@ If you are deploying this on bare metal / AWS EC2 / Google Compute Engine instan
 
 The following steps will allow you to deploy a Kubernetes HA cluster on your local vagrant cluster.
 ```
-ansible-playbook -e "ansible_user=vagrant" -i vagrant.inventory install-kubernetes-site.yml
+ansible-playbook -i vagrant.inventory install-kubernetes-site.yml | sed 's/\\n/\n/g'
 ```
 Deployment may take a while but once it's done, you'll need to set up an SSH tunnel to access port 7000 on the admin node and run `port-forward` on dashboard service.
 ```
