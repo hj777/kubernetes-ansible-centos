@@ -57,6 +57,11 @@ Host node4
     ForwardAgent yes
 ```
 
+create ansible control path folder
+```
+mkdir -p ~/.ansible/cp
+```
+
 Run the following to create cluster of VMs.
 ```
 vagrant up
